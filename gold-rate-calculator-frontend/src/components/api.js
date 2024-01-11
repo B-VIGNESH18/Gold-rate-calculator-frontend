@@ -1,7 +1,9 @@
 // api.js
 export const fetchGoldRates = async () => {
   try {
-    const response = await fetch("http://localhost:3000/gold-rates");
+    const response = await fetch(
+      "https://b-vignesh-gold-rate-calculator-backend.onrender.com/gold-rates"
+    );
     if (!response.ok) {
       throw new Error("Failed to fetch gold rates");
     }
@@ -15,7 +17,9 @@ export const fetchGoldRates = async () => {
 // api.js
 export const fetchChartData = async () => {
   try {
-    const response = await fetch("http://localhost:3000/chart-data");
+    const response = await fetch(
+      "https://b-vignesh-gold-rate-calculator-backend.onrender.com/chart-data"
+    );
     if (!response.ok) {
       throw new Error("Failed to fetch chart data");
     }

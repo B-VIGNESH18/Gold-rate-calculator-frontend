@@ -8,7 +8,7 @@ const ChartComponent = () => {
 
   useEffect(() => {
     // Fetch chart data from your backend API
-    fetch('http://localhost:3000/chart-data')
+    fetch('https://b-vignesh-gold-rate-calculator-backend.onrender.com/chart-data')
       .then((response) => response.json())
       .then((data) => setChartData(data))
       .catch((error) => console.error('Error fetching chart data:', error));
