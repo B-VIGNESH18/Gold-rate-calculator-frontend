@@ -1,4 +1,13 @@
 // api.js
+// api.js
+
+export const fetchDataFromAPI = async (endpoint) => {
+  // Your fetch logic here
+  const response = await fetch(endpoint);
+  const data = await response.json();
+  return data;
+};
+
 export const fetchGoldRates = async () => {
   try {
     const response = await fetch(
