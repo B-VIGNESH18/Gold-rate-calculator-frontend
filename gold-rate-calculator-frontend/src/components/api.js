@@ -7,6 +7,14 @@ export const fetchDataFromAPI = async (endpoint) => {
   const data = await response.json();
   return data;
 };
+// api.js
+
+export const fetchChartDataFromAPI = async (chartEndpoint) => {
+  // Your fetch logic for chart data here
+  const response = await fetch(chartEndpoint);
+  const chartData = await response.json();
+  return chartData;
+};
 
 export const fetchGoldRates = async () => {
   try {
