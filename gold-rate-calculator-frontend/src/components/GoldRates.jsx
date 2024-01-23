@@ -1,5 +1,3 @@
-
-// // GoldRate.jsx
 // import React, { useEffect, useState } from 'react';
 // import { fetchGoldRates } from './api';
 
@@ -35,60 +33,97 @@
 //     </ul>
 //   </div>
 // );
+// }
+// export default GoldRate;
+// import React, { useState, useEffect } from 'react';
+// import { fetchGoldRates } from './api'; // Replace with your actual API function
 
-//   // return (
-//   //   <div>
-//   //     <h2>Gold Rates</h2>
-//   //     {/* Render goldRates data */}
-//   //     <ul>
-//   //       {goldRates.map((rate, index) => (
-//   //         <li key={index}>{/* Display gold rate details */}</li>
-//   //       ))}
-//   //     </ul>
-//   //   </div>
-//   // );
+// const GoldRates = () => {
+//   const [goldData, setGoldData] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState(null);
+
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         const data = await fetchGoldRates(); // Use your API function
+//         setGoldData(data);
+//         setLoading(false);
+//       } catch (error) {
+//         setError('Error fetching gold data. Please try again.');
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchData();
+//   }, []);
+
+//   return (
+//     <div>
+//       <h2>Gold Rates</h2>
+//       {loading && <p>Loading...</p>}
+//       {error && <p style={{ color: 'red' }}>{error}</p>}
+//       {goldData.length > 0 && (
+//         <ul>
+//           {goldData.map((entry) => (
+//             <li key={entry.id}>
+//               Date: {entry.date}, Rate: {entry.rate}
+//             </li>
+//           ))}
+//         </ul>
+//       )}
+//     </div>
+//   );
 // };
 
-// export default GoldRate;
-// GoldRates.jsx
+// export default GoldRates;
+// GoldRate.jsx
+import React, { useEffect, useState } from 'react';
+import { fetchGoldRates } from './api';
 
-import React, { useState, useEffect } from 'react';
-import { fetchDataFromAPI } from './api'; // Make sure to import the fetchDataFromAPI function from your api.js file
-
-const GoldRates = () => {
-  const [goldData, setGoldData] = useState([]);
+const GoldRate = () => {
+  const [goldRates, setGoldRates] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchGoldData = async () => {
+    const getGoldRates = async () => {
       try {
-        const data = await fetchDataFromAPI('goldEndpoint'); // Replace 'goldEndpoint' with your actual API endpoint for gold rates
-        setGoldData(data);
+        const data = await fetchGoldRates();
+        setGoldRates(data);
         setLoading(false);
       } catch (error) {
-        setError('Error fetching gold data. Please try again later.');
+        console.error('Error fetching gold rates:', error);
+        setError('Failed to fetch gold rates');
         setLoading(false);
       }
     };
 
-    fetchGoldData();
+    getGoldRates();
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div>
-      <h1>Gold Rates</h1>
-      {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
-      {!loading && !error && (
-        <ul>
-          {goldData.map((entry, index) => (
-            <li key={index}>{entry}</li>
-          ))}
-        </ul>
-      )}
+      <h2>Gold Rates</h2>
+      <ul>
+        {goldRates.map((rate, index) => (
+          <li key={index}>
+            <p>Date: {rate.date}</p>
+            <p>rate: {rate.rate}</p>
+            {/* Render other details */}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
 
-export default GoldRates;
+export default GoldRate;
