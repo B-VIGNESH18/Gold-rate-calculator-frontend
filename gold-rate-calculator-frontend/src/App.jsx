@@ -1,99 +1,4 @@
 
-// import React from 'react';
-// import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
-// import GoldRates from './components/GoldRates';
-// import ChartComponent from './components/ChartComponent';
-
-
-
-// const App = () => {
-//   return (
-//     <div>
-//       <h1>Gold Rate Calculator</h1>
-//       <GoldRates />
-//       <ChartComponent />
-//       {/* Other components and functionalities */}
-//     </div>
-//   );
-//   }
-// export default App;
-// App.jsx
-
-// App.jsx
-// // import React from 'react';
-// import React, { useState } from 'react';
-// import GoldRates from './components/GoldRates';
-// import ChartComponent from './components/ChartComponent';
-
-
-// const App = () => {
-//   const [user, setUser] = useState(null);
-//   const [loginError, setLoginError] = useState(null);
-
-//   const handleLogin = (username, password) => {
-//     // Perform authentication logic here (e.g., call an authentication API)
-//     // For simplicity, let's consider a basic username/password check
-//     if (username === 'user' && password === 'password') {
-//       setUser(username);
-//       setLoginError(null);
-//     } else {
-//       setUser(null);
-//       setLoginError('Invalid username or password');
-//     }
-//   };
-
-//   const handleLogout = () => {
-//     setUser(null);
-//     setLoginError(null);
-//   };
-
-//   return (
-//     <div>
-//       {user ? (
-//         <div>
-//           <h1>Welcome, {user}!</h1>
-//           <button onClick={handleLogout}>Logout</button>
-//         </div>
-//       ) : (
-//         <div>
-//           <h1>Login</h1>
-//           {loginError && <div style={{ color: 'red' }}>{loginError}</div>}
-//           <form
-//             onSubmit={(e) => {
-//               e.preventDefault();
-//               const username = e.target.elements.username.value;
-//               const password = e.target.elements.password.value;
-//               handleLogin(username, password);
-//             }}
-//           >
-//             <label>
-//               Username:
-//               <input type="text" name="username" />
-//             </label>
-//             <br />
-//             <label>
-//               Password:
-//               <input type="password" name="password" />
-//             </label>
-//             <br />
-//             <button type="submit">Login</button>
-//           </form>
-//         </div>
-//       )}
-
-//       {/* Display gold rates and chart component */}
-//       {user && (
-//         <div>
-//           <GoldRates />
-//           <ChartComponent />
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default App;
-// App.jsx
 // import React, { useState } from 'react';
 // import GoldRates from './components/GoldRates';
 // import ChartComponent from './components/ChartComponent';
@@ -106,7 +11,11 @@
 //   const handleLogin = (username, password) => {
 //     // Perform authentication logic here (e.g., call an authentication API)
 //     // For simplicity, let's consider a basic username/password check
-//     if (username === 'user' && password === 'password') {
+//     // Demo credentials for testing:
+//     const demoUsername = 'user';
+//     const demoPassword = 'password';
+
+//     if (username === demoUsername && password === demoPassword) {
 //       setUser(username);
 //       setLoginError(null);
 //     } else {
@@ -201,7 +110,6 @@
 // };
 
 // export default App;
-// App.jsx
 import React, { useState } from 'react';
 import GoldRates from './components/GoldRates';
 import ChartComponent from './components/ChartComponent';
@@ -211,37 +119,62 @@ const App = () => {
   const [loginError, setLoginError] = useState(null);
   const [signupError, setSignupError] = useState(null);
 
-  const handleLogin = (username, password) => {
-    // Perform authentication logic here (e.g., call an authentication API)
-    // For simplicity, let's consider a basic username/password check
-    // Demo credentials for testing:
-    const demoUsername = 'user';
-    const demoPassword = 'password';
+  const handleLogin = async (username, password) => {
+    try {
+      const response = await fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
 
-    if (username === demoUsername && password === demoPassword) {
-      setUser(username);
-      setLoginError(null);
-    } else {
+      const data = await response.json();
+
+      if (response.ok) {
+        setUser(data.user);
+        setLoginError(null);
+      } else {
+        setUser(null);
+        setLoginError(data.message);
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
       setUser(null);
-      setLoginError('Invalid username or password');
+      setLoginError('Error during login. Please try again.');
     }
   };
 
-  const handleSignup = (newUsername, newPassword) => {
-    // Perform user registration logic here (e.g., call a signup API)
-    // For simplicity, let's consider a basic registration without backend interaction
-    if (newUsername && newPassword) {
-      setUser(newUsername);
-      setSignupError(null);
-    } else {
+  const handleSignup = async (newUsername, newPassword) => {
+    try {
+      const response = await fetch('http://localhost:3000/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username: newUsername, password: newPassword }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setUser(data.user);
+        setSignupError(null);
+      } else {
+        setUser(null);
+        setSignupError(data.message);
+      }
+    } catch (error) {
+      console.error('Error during signup:', error);
       setUser(null);
-      setSignupError('Username and password are required for signup');
+      setSignupError('Error during signup. Please try again.');
     }
   };
 
   const handleLogout = () => {
     setUser(null);
     setLoginError(null);
+    setSignupError(null);
   };
 
   return (
