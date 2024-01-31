@@ -121,7 +121,7 @@ const App = () => {
 
   const handleLogin = async (username, password) => {
     try {
-      const response = await fetch('http://localhost:3000/login', {
+      const response = await fetch('https://b-vignesh-gold-rate-calculator-backend.onrender.com/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -147,7 +147,7 @@ const App = () => {
 
   const handleSignup = async (newUsername, newPassword) => {
     try {
-      const response = await fetch('http://localhost:3000/signup', {
+      const response = await fetch('https://b-vignesh-gold-rate-calculator-backend.onrender.com/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
