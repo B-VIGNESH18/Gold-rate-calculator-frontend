@@ -186,7 +186,7 @@ const GoldRate = () => {
 
   return (
     <div>
-      <h2>Gold Rate Calculator</h2>
+      <h1>Gold Rate Calculator</h1>
       <form>
         <label>
           Weight of Gold (in grams):
@@ -198,9 +198,10 @@ const GoldRate = () => {
           <input type="number" value={purity} onChange={(e) => setPurity(e.target.value)} />
         </label>
         <br />
-        <button type="button" onClick={handleCalculate}>
+        {/* <button type="button" onClick={handleCalculate}>
           Calculate
-        </button>
+        </button> */}
+         <button class="button-orange" onClick={handleCalculate}>Calculate</button>
       </form>
 
       {calculationResult !== null && (

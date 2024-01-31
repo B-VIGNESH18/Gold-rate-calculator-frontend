@@ -113,7 +113,7 @@
 import React, { useState } from 'react';
 import GoldRates from './components/GoldRates';
 import ChartComponent from './components/ChartComponent';
-
+import './AppStyles.css';// Import the CSS file
 const App = () => {
   const [user, setUser] = useState(null);
   const [loginError, setLoginError] = useState(null);
@@ -178,15 +178,18 @@ const App = () => {
   };
 
   return (
+    // (<div> <h1>Gold Rate Calculator</h1> </div>)
     <div>
       {user ? (
         <div>
           <h1>Welcome, {user}!</h1>
-          <button onClick={handleLogout}>Logout</button>
+          {/* <button onClick={handleLogout}>Logout</button> */}
+           <button class="button-orange" onClick={handleLogout}>Logout</button>
         </div>
       ) : (
-        <div>
-          <h1>Login</h1>
+          <div>
+            <h1>Gold Rate Calculator</h1>
+          <h2>Login</h2>
           {loginError && <div style={{ color: 'red' }}>{loginError}</div>}
           <form
             onSubmit={(e) => {
@@ -206,10 +209,11 @@ const App = () => {
               <input type="password" name="password" />
             </label>
             <br />
-            <button type="submit">Login</button>
+              {/* <button type="submit">Login</button> */}
+              <button class="button-green" type="submit">Login</button>
           </form>
 
-          <h1>Signup</h1>
+          <h2>Signup</h2>
           {signupError && <div style={{ color: 'red' }}>{signupError}</div>}
           <form
             onSubmit={(e) => {
@@ -229,7 +233,8 @@ const App = () => {
               <input type="password" name="newPassword" />
             </label>
             <br />
-            <button type="submit">Signup</button>
+              {/* <button type="submit">Signup</button> */}
+              <button class="button-orange" type="submit">Signup</button>
           </form>
         </div>
       )}
