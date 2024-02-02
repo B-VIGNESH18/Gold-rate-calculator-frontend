@@ -864,14 +864,14 @@ const App = () => {
                   <input type="password" name="newPassword" />
                 </label>
                 <br />
-                <label>
+                {/* <label>
                   Gold Carats:
                   <select name="goldCarats">
                     <option value="20">20 Karats</option>
                     <option value="22">22 Karats</option>
                     <option value="24">24 Karats</option>
                   </select>
-                </label>
+                </label> */}
                 <br />
                 <button className="button-orange" type="submit">Signup</button>
               </form>
